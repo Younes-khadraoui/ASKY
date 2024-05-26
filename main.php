@@ -2,7 +2,11 @@
 <?php 
 session_start(); 
 
-if (!isset($_SESSION['username'])) {
+if (isset($_COOKIE['user'])) {
+    $identifier = $_COOKIE['user'];
+    $_SESSION['user_id'] = $found_user['id'];
+    $_SESSION['username'] = $found_user['username']; 
+} else if (!isset($_SESSION['username'])) {
     header('Location: login.php');
     exit;
 }

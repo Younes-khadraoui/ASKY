@@ -22,6 +22,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (password_verify($password, $user['password'])) {
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['username'] = $username; 
+
+            $identifier = hash('sha256', $user['id'] . 'some_random_string');
+            $sql = "UPDATE users SET identifier = ? WHERE id = ?";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("ss", $identifier, $user['id']);
+            $stmt->execute();
+
+            setcookie('user', $identifier, time() + (86400 * 30), "/"); 
+
             header('Location: todo.php'); 
             exit;
         } else {
