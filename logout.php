@@ -14,6 +14,5 @@ if (isset($_SERVER['HTTP_COOKIE'])) {
     }
 }
 
-header('Location: main.php');
+header('Location: index.php');
 exit;
-?>
