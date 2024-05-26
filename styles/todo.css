@@ -1,0 +1,208 @@
+body {
+    font-family: 'Calibri', sans-serif;
+    background-color: #f7f7f7;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #7980FF;
+    padding: 15px 30px;
+    color: white;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.profile {
+    display: flex;
+    align-items: center;
+}
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.greeting {
+    display: flex;
+    flex-direction: column;
+}
+
+.greeting p {
+    margin: 0;
+    font-size: medium;
+}
+
+.name {
+    font-weight: bold;
+    margin: 0;
+}
+
+.hello {
+    margin: 0;
+}
+
+.logout {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.search-bar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 100px 0 20px 0; /* Adjust top margin to account for fixed navbar */
+    position: relative;
+}
+
+.search-bar input {
+    padding: 15px 20px;
+    border: 1px solid #ccc;
+    border-radius: 25px;
+    margin-bottom: 5px;
+    width: 500px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-size: 16px;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.search-bar input:focus {
+    border-color: #7980FF;
+}
+
+.add-btn {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 15px;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-top: -50px; /* Adjust this to align the button */
+    margin-left: 480px; /* Adjust this to align the button */
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.dropdown {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 52px; /* Adjust to align right after input */
+    left: 0;
+    width: 100%;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    align-items: center;
+    z-index: 10;
+}
+
+.dropdown form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+}
+
+.dropdown input, .dropdown select {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 90%;
+}
+
+.submit-btn {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100px;
+}
+
+.task-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.task-item {
+    background-color: #e1e4fc;
+    margin-bottom: 10px;
+    padding: 15px;
+    border-radius: 10px;
+    position: relative;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.task-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.task-title {
+    margin: 0;
+    font-size: 16px;
+    font-weight: bold;
+    flex-grow: 1; /* Allow the title to take available space */
+}
+
+.task-status {
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    color: white;
+    margin-left: 10px; /* Add some space between title and status */
+}
+
+.todo {
+    background-color: #ff6f91;
+}
+
+.ongoing {
+    background-color: #4cb5f5;
+}
+
+.done {
+    background-color: #63c76a;
+}
+
+.task-description {
+    margin: 10px 0;
+}
+
+.remove-btn {
+    background: none;
+    border: none;
+    color: #888;
+    font-size: 16px;
+    cursor: pointer;
+}
