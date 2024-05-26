@@ -1,4 +1,8 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 include 'includes/config.php';
 
 session_start();
@@ -18,7 +22,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (password_verify($password, $user['password'])) {
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['username'] = $username; 
-            header('Location: main.php'); 
+
+            // Set cookies for user_id and username
+            setcookie("user_id", $user['id'], time() + (86400 * 30), "/"); // 86400 = 1 day
+            setcookie("username", $username, time() + (86400 * 30), "/");
+
+            header('Location: todo.php'); 
             exit;
         } else {
             $error = "Invalid password.";

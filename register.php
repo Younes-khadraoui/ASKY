@@ -1,6 +1,6 @@
-<?php include 'includes/config.php'; ?>
+<?php 
+include 'includes/config.php';
 
-<?php
 session_start(); 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -13,10 +13,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'];
     $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
 
-    $sql = "INSERT INTO users (username, password) VALUES ('$username', '$password')";
-    if ($conn->query($sql) === TRUE) {
+    $sql = "INSERT INTO users (username, password) VALUES (?, ?)";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("ss", $username, $password);
+    if ($stmt->execute()) {
         $_SESSION['username'] = $username;
-        $_SESSION['user_id'] = $conn->insert_id; 
+        $_SESSION['user_id'] = $stmt->insert_id;
+
+        // Set cookies for user_id and username
+        setcookie("user_id", $stmt->insert_id, time() + (86400 * 30), "/"); // 86400 = 1 day
+        setcookie("username", $username, time() + (86400 * 30), "/");
+
         header('Location: main.php');
         exit;
     } else {

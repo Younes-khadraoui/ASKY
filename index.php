@@ -1,3 +1,13 @@
+<?php
+include 'includes/config.php';
+
+session_start();
+
+if (isset($_COOKIE['user_id']) && isset($_COOKIE['username'])) {
+    $_SESSION['user_id'] = $_COOKIE['user_id'];
+    $_SESSION['username'] = $_COOKIE['username'];
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,8 +20,12 @@
     <div class='container'>
         <h1>Welcome to Your Todo app</h1>
         <p>Discover amazing features and organize your life!</p>
-        <a href="register.php" class="button">Register</a>
-        <a href="login.php" class="button">Login</a>
+        <?php if (isset($_SESSION['username'])): ?>
+            <a href="todo.php" class="button">Go to Todo List</a>
+        <?php else: ?>
+            <a href="register.php" class="button">Register</a>
+            <a href="login.php" class="button">Login</a>
+        <?php endif; ?>
     </div>
 </body>
 </html>
