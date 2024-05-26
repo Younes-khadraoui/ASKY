@@ -1,3 +1,14 @@
+<?php 
+session_start(); 
+
+if (isset($_COOKIE['user_id']) && isset($_COOKIE['username'])) {
+    $_SESSION['user_id'] = $_COOKIE['user_id'];
+    $_SESSION['username'] = $_COOKIE['username'];
+} else if (!isset($_SESSION['username'])) {
+    header('Location: login.php');
+    exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,7 +19,8 @@
 </head>
 <body>
     <div class="container">
-        <p>Welcome <?php echo $_SESSION['username'];  ?></p>
+        <p> <?php echo $_SESSION['username'];  ?></p>
+        <a >Welcome to Simple To-Do List. You can start creating your tasks <a href="todo.php">here</a></a>
         <form action="logout.php" method="post">
             <button class="btn" type="submit">Logout</button>
         </form>

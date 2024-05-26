@@ -17,3 +17,4 @@ CREATE TABLE IF NOT EXISTS tasks (
     user_id INT NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users(id)
 );
+ALTER TABLE tasks ADD COLUMN task_name VARCHAR(255) NOT NULL AFTER id;
