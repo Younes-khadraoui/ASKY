@@ -8,14 +8,20 @@ include 'includes/config.php';
 session_start();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $username = $_POST['username'];
-    $password = $_POST['password'];
+    $username = trim(htmlspecialchars($_POST['username']));
+    $password = trim(htmlspecialchars($_POST['password']));
 
     $sql = "SELECT * FROM users WHERE username=?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("s", $username);
     $stmt->execute();
     $result = $stmt->get_result();
+
+    if (!preg_match('/^[a-zA-Z0-9_]+$/', $username)) {
+        echo "Use only letters, numbers, and _";
+    } elseif (strlen($password) < 8) {
+        echo "At least 8 characters password.";
+    }
 
     if ($result->num_rows > 0) {
         $user = $result->fetch_assoc();

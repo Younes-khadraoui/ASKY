@@ -10,24 +10,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         die("Connection failed: " . $conn->connect_error);
     }
 
-    $username = $_POST['username'];
-    $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
+    $username = trim(htmlspecialchars($_POST['username']));
+    $password = $_POST['password'];
 
-    $sql = "INSERT INTO users (username, password) VALUES (?, ?)";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("ss", $username, $password);
-    if ($stmt->execute()) {
-        $_SESSION['username'] = $username;
-        $_SESSION['user_id'] = $stmt->insert_id;
-
-        // set cookies for user_id and username
-        setcookie("user_id", $stmt->insert_id, time() + (86400 * 30), "/"); // 86400 = 1 day
-        setcookie("username", $username, time() + (86400 * 30), "/");
-
-        header('Location: main.php');
-        exit;
+    if (!preg_match('/^[a-zA-Z0-9_]+$/', $username)) {
+        echo "Use only letters, numbers, and _.";
+    }elseif (strlen($password) < 8) {
+        echo "At least 8 characters password.";
     } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
+        $check_sql = "SELECT id FROM users WHERE username = ?";
+        $check_stmt = $conn->prepare($check_sql);
+        $check_stmt->bind_param("s", $username);
+        $check_stmt->execute();
+        $check_result = $check_stmt->get_result();
+
+        if ($check_result->num_rows > 0) {
+            echo "Username already exists. Please choose a different one.";
+        } else {
+            $hashed_password = password_hash($password, PASSWORD_BCRYPT);
+
+            $sql = "INSERT INTO users (username, password) VALUES (?, ?)";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("ss", $username, $hashed_password);
+
+            if ($stmt->execute()) {
+                $_SESSION['username'] = $username;
+                $_SESSION['user_id'] = $stmt->insert_id;
+
+                setcookie("user_id", $stmt->insert_id, time() + (86400 * 30), "/"); // 86400 = 1 day
+                setcookie("username", $username, time() + (86400 * 30), "/");
+
+                header('Location: todo.php');
+                exit;
+            } else {
+                echo "Error: " . $sql . "<br>" . $conn->error;
+            }
+        }
     }
 }
 ?>
