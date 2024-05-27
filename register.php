@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['username'] = $username;
         $_SESSION['user_id'] = $stmt->insert_id;
 
-        // Set cookies for user_id and username
+        // set cookies for user_id and username
         setcookie("user_id", $stmt->insert_id, time() + (86400 * 30), "/"); // 86400 = 1 day
         setcookie("username", $username, time() + (86400 * 30), "/");
 
@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html>
 <head>
     <title>Registration</title>
-    <link rel="stylesheet" href="styles/style.css?v=1.0">
+    <link rel="stylesheet" href="styles/register.css?v=1.0">
 </head>
 <body>
     <div class="container">
