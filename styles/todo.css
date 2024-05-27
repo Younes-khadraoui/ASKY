@@ -72,11 +72,20 @@ body {
   position: relative;
 }
 
-.task-bar h1 {
-  font-weight: bold;
-  color: #7980ff;
-  text-decoration: underline;
-  text-underline-offset: 10px;
+.task-bar input {
+  padding: 15px 20px;
+  border: 1px solid #ccc;
+  border-radius: 25px;
+  margin-bottom: 5px;
+  width: 500px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-size: 16px;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.task-bar input:focus {
+  border-color: #7980ff;
 }
 
 .add-btn {

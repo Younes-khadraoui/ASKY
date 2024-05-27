@@ -41,7 +41,7 @@ $stmt->close();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Task Manager</title>
-    <link rel="stylesheet" href="styles/todo.css?v=1.0">
+    <link rel="stylesheet" href="styles/todo.css?v=1.1">
 </head>
 <body>
     <header class="navbar">
@@ -59,7 +59,7 @@ $stmt->close();
 
     <div class="container">
         <div class="task-bar">
-            <h1>Add a new task</h1>
+            <input  onclick="openModal()" type="text" id="task-input" placeholder="Add A Task">
             <button class="add-btn" onclick="openModal()">+</button>
         </div>
         <div class="task-list" id="task-list">
@@ -68,7 +68,7 @@ $stmt->close();
                 <div class="task-header">
                     <div>
                         <div class="editable" onclick="makeEditable(this, 'task_name')">
-                            <p  class="task-title"><?php echo htmlspecialchars($task['task_name']); ?></p>
+                            <p class="task-title"><?php echo htmlspecialchars($task['task_name']); ?></p>
                         </div>
                         <div class="editable" onclick="makeEditable(this, 'description')">
                             <p class="task-description"><?php echo htmlspecialchars($task['description']); ?></p>
